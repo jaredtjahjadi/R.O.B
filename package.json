@@ -1,0 +1,25 @@
+{
+  "name": "r.o.b",
+  "version": "1.0.0",
+  "description": "A Discord bot written in JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaredtjahjadi/R.O.B..git"
+  },
+  "keywords": [
+    "discord"
+  ],
+  "author": "Jared Tjahjadi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaredtjahjadi/R.O.B./issues"
+  },
+  "homepage": "https://github.com/jaredtjahjadi/R.O.B.#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
+}
