@@ -2,8 +2,10 @@ module.exports = {
     name: "help",
     aliases: ['commands'],
     description: "Displays all commands.",
-    args: false,
     execute(message, args) {
-        message.channel.send("Help command! (TBA)");
+        if(!args.length) message.channel.send("Available commands: help, ping, play");
+        else {
+            message.channel.send("TBA");
+        }
     }
 };

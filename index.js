@@ -23,10 +23,11 @@ client.on("message", message => {
     const cmdArgs = message.content.substring(message.content.indexOf(prefix) + prefix.length).split(new RegExp(/\s+/));
     const cmdName = cmdArgs.shift().toLowerCase();
 
-    //Sends a message if the user sends a nonexistent command
-    if(!client.commands.has(cmdName)) message.channel.send("Command does not exist.");
+    //Sets up commands and command aliases
+    const cmd = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 
-    const cmd = client.commands.get(cmdName);
+    //Sends a message if the user sends a nonexistent command
+    if(!cmd) message.channel.send("Command does not exist.");
 
     //Attempts to execute command, logs to console + sends error message if something goes wrong
     try { cmd.execute(message, cmdArgs); }
@@ -52,7 +53,7 @@ function loadCommands(collection, directory) {
             const command = require(path);
             collection.set(command.name, command); 
         }
-        //If the file's a directory, use recursion
+        //If the file is a directory, use recursion
         else if(fs.lstatSync(path).isDirectory()) loadCommands(collection, path);
     }
 };
