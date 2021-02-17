@@ -1,5 +1,6 @@
-const Discord = require("discord.js"); //Require discord.js
-const { prefix, token } = require("./config.json"); //Require separate config file
+//Requirements for the bot to run correctly
+const Discord = require("discord.js"); //Require discord.js (basis of all Discord bots)
+const { prefix, token } = require("./config.json"); //Require separate config file (esp. to hide token)
 const fs = require('fs'); //Required for the command handler to work
 const client = new Discord.Client(); //discord.js client (bot)
 
