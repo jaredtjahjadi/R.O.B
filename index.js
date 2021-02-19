@@ -17,6 +17,9 @@ client.login(token);
 
 //Client listens to messages sent in chat
 client.on("message", message => {
+    //Triggers a message when bot is mentioned (redirect to using proper prefix instead)
+    if(message.mentions.has(client.user)) return message.channel.send("Use the prefix \"?command\" instead! (e.g. ?help)");
+
     //Returns if message author is a bot or if message doesn't start w/ prefix
     if(message.author.bot || !message.content.startsWith(prefix)) return;
 

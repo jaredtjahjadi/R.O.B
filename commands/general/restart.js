@@ -8,6 +8,10 @@ module.exports = {
     description: "Restarts the bot and gets the latest changes to its code. Only usable by bot creator.",
     execute(message, args) {
         if(message.author.id === "284550014963810304")
-            message.channel.send("Restarting the bot...").then(msg => client.destroy()).then(() => client.login(token)).then(message.channel.send("Bot restarted!"));
+            message.channel.send("Restarting the bot...")
+            .then(msg => client.destroy())
+            .then(() => client.login(token))
+            .then(client.user.setActivity("Super Smash Bros. Ultimate"))
+            .then(message.channel.send("Bot restarted!"));
     }
 }

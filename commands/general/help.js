@@ -23,7 +23,7 @@ module.exports = {
             let msgAliases = `**Alias(es):** `;
             command.aliases ? msgAliases += `${command.aliases.join(', ')}\n` : msgAliases += "None\n";
             const msgDesc = `**Description:** ${command.description}\n`;
-            let msgUse = `**Usage:** ${prefix}${command.name}`;
+            let msgUse = `**Usage:** ${prefix}${command.name} `;
             if(command.usage) msgUse += `${command.usage}`;
             message.channel.send(msgName + msgAliases + msgDesc + msgUse, { split: true});
         }
