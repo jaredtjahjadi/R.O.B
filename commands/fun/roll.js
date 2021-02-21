@@ -2,6 +2,9 @@ module.exports = {
     name: "roll",
     aliases: [],
     description: "Roll a dice! Virtually.",
+    args: false,
+    usage: "",
+    guildOnly: false,
     execute(message, args) {
         const num = Math.floor(Math.random() * 6 + 1);
         message.channel.send(`You rolled a ${num}!`);

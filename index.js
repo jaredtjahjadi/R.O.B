@@ -9,7 +9,7 @@ client.once('ready', () => {
     console.log(`${client.user.tag} online.`);
 
     //Displays "Playing <parameter>" under client status
-    client.user.setActivity("Super Smash Bros. Ultimate");
+    client.user.setActivity("Super Smash Bros. Ultimate | ?help");
 });
 
 //Client logs in
@@ -30,14 +30,19 @@ client.on("message", message => {
     //Sets up commands and command aliases
     const cmd = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 
-    //Sends a message if the user sends a nonexistent command
-    if(!cmd) message.channel.send("Command does not exist.");
+    //The gatekeepers of command execution. Returns and sends a message if:
+    //User sends nonexistent command
+    if(!cmd) return message.channel.send("Command does not exist.");
+    //User uses a server-only command in DMs
+    if(cmd.guildOnly && message.channel.type == "dm") return message.channel.send("This command cannot be used in direct messages.");
+    //User sends no args for command that requires args
+    if(cmd.args && !cmdArgs.length) return message.channel.send("This command requires args! Type \"?help <command>\" for proper usage.");
 
-    //Attempts to execute command, logs to console + sends error message if something goes wrong
-    try { cmd.execute(message, cmdArgs); }
-    catch(error) {
-        console.log(error);
-        message.channel.send("Error in executing command.");
+    //Command execution
+    try { cmd.execute(message, cmdArgs); } //Executes the command
+    catch(error) { //In case something goes wrong
+        console.log(error); //Logs error to console
+        message.channel.send("Error in executing command."); //Sends message to chat
     }
 });
 

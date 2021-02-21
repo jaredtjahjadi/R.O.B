@@ -3,7 +3,9 @@ module.exports = {
     name: "help",
     aliases: ['commands'],
     description: "Displays all commands.",
+    args: false,
     usage: "[command]",
+    guildOnly: false,
     execute(message, args) {
         const { commands } = message.client;
 
@@ -21,7 +23,7 @@ module.exports = {
             const msgName = `**Name:** ${command.name}\n`;
             //Aliases section of the message
             let msgAliases = `**Alias(es):** `;
-            command.aliases ? msgAliases += `${command.aliases.join(', ')}\n` : msgAliases += "None\n";
+            (command.aliases.length != 0) ? msgAliases += `${command.aliases.join(', ')}\n` : msgAliases += "None\n";
             const msgDesc = `**Description:** ${command.description}\n`;
             let msgUse = `**Usage:** ${prefix}${command.name} `;
             if(command.usage) msgUse += `${command.usage}`;

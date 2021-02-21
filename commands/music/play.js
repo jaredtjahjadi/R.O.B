@@ -2,14 +2,15 @@ const ytdl = require('ytdl-core'); //Required for YouTube videos to be played
 
 module.exports = {
     name: "play",
+    aliases: [],
     description: "Play music in a voice channel!",
+    args: true,
+    usage: "<YouTube URL/keywords>",
+    guildOnly: true,
     //Check if user in VC -> check args
     execute(message, args) {
-        //Sends message if user is not in voice channel
+        //Returns and sends message if user is not in voice channel
         if(!message.member.voice.channel) return message.channel.send("You're not in a voice channel!");
-
-        //Sends message if no args are provided
-        if(!args.length) return message.channel.send("You didn't provide keywords nor a URL.");
 
         //The bot joins the voice channel
         message.channel.send("Joining the voice channel **" + message.member.voice.channel.name + "**."); //Sends message

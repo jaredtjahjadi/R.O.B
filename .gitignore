@@ -1,5 +1,5 @@
 # Excessive local node module files, contributes nothing when seen
-# Node modules used in this project: discord.js, discordjs/opus, ffmpeg, fs
+# Node modules used in this project can be seen in package.json
 node_modules
 
 # Forever in .gitignore jail (contains token)
