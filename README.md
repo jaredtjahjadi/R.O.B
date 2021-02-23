@@ -1,7 +1,7 @@
 # R.O.B.
 A Discord bot written in JavaScript using Discord.js. Usable for general purposes (e.g. music, moderation).  
 This bot was created by [Jared Tjahjadi](mailto:jaredtjahjadi@gmail.com), a Computer Science undergraduate at Stony Brook University.  
-[Invite Link](https://discord.com/oauth2/authorize?client_id=720673589258616874&scope=bot)
+[Invite Link](https://discord.com/api/oauth2/authorize?client_id=720673589258616874&permissions=8&scope=bot)
 
 # Features
 * Music commands
