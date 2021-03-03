@@ -1,3 +1,6 @@
+const play = require('./play');
+const playModule = require('./play');
+
 module.exports = {
     name: "skip",
     aliases: [],
@@ -5,10 +8,9 @@ module.exports = {
     args: false,
     usage: "",
     guildOnly: true,
+    voiceOnly: true,
     execute(message, args) {
-        //Sends message if user is not in voice channel
-        if(!message.member.voice.channel) return message.channel.send("You're not in a voice channel!");
-        
-        message.channel.send("Skip command (WIP)");
+        if(!playModule.serverQueue) return message.channel.send("You can't skip songs that don't exist!");
+        playModule.serverQueue.connection.dispatcher.end();
     }
 }

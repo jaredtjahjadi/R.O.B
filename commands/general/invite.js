@@ -5,6 +5,7 @@ module.exports = {
     args: false,
     usage: "",
     guildOnly: false,
+    voiceOnly: false,
     execute(message, args) {
         message.channel.send("Invite Bot: https://bit.ly/37xMIEB\nBot Server: TBA");
     }

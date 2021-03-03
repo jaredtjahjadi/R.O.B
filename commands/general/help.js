@@ -6,6 +6,7 @@ module.exports = {
     args: false,
     usage: "[command]",
     guildOnly: false,
+    voiceOnly: false,
     execute(message, args) {
         const { commands } = message.client;
 

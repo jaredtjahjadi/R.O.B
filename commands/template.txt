@@ -4,9 +4,10 @@ module.exports = {
     name: "<command name>", //self-explanatory
     aliases: [], //An array of strings; leave as is if no aliases
     description: "", //self-explanatory
-    args: true/false, //Are args REQUIRED to use a command? Some commands may not have required args but will still take viable args (ex: help)
-    usage: "", //How args should be used in a command. Leave as is if no args. Syntax based on Minecraft command syntax.
-    guildOnly: true, //Determines if a command should only be usable 
+    args: true/false, //Determines if args are required to use a command
+    usage: "", //How args should be used in a command, leave as is if no args
+    guildOnly: true, //Determines if a command should only be usable within any server (not in DMs)
+    voiceOnly: true, //Determines if a command should only be usable when the user is in a voice channel
     execute(message, args) {
         //Command-specific code goes here
     }

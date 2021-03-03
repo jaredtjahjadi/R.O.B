@@ -6,6 +6,7 @@ module.exports = {
     args: true,
     usage: "(rock|paper|scissors|@(username))",
     guildOnly: false,
+    voiceOnly: false,
     execute(message, args) {
         //Playing with the bot
         const viableArgs = ["rock", "paper", "scissors"]; //Which args are viable when playing w/ bot
@@ -20,7 +21,7 @@ module.exports = {
                         //User wins
                         else if((args[0] == "rock" && botChoice == "scissors") || (args[0] == "paper" && botChoice == "rock") || (args[0] == "scissors" && botChoice == "paper"))
                             msg.edit(`${editedMsg} You won!`);
-                        else
+                        else //User loses
                             msg.edit(`${editedMsg} You lost...`);
                     }, 2000);
             });

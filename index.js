@@ -6,22 +6,21 @@ const client = new Discord.Client(); //discord.js client (bot)
 
 //Events when client is ready to go online
 client.once('ready', () => {
-    console.log(`${client.user.tag} online.`);
-
-    //Displays "Playing <parameter>" under client status
-    client.user.setActivity("Super Smash Bros. Ultimate | ?help");
+    client.user.setActivity("Super Smash Bros. Ultimate | ?help"); //Displays a custom status
+    console.log(`${client.user.tag} online.`); //Bot successfully went online!
 });
 
 //Client logs in
 client.login(token);
 
 //Client listens to messages sent in chat
-client.on("message", message => {
-    //Triggers a message when bot is mentioned (redirect to using proper prefix instead)
-    if(message.mentions.has(client.user)) return message.channel.send("Use the prefix \"?command\" instead! (e.g. ?help)");
+client.on("message", message => { //The below code occurs for every message sent in chat
+    //Don't get involved with any msgs sent by another bot! Return.
+    if(message.author.bot) return;
 
-    //Returns if message author is a bot or if message doesn't start w/ prefix
-    if(message.author.bot || !message.content.startsWith(prefix)) return;
+    //Returns and sends a guide message if "rob" is the only content in the message
+    if(message.content.equals("rob")) return message.channel.send(`Yes? (Type "${prefix}help" to see the list of commands.)`);
+    if(!message.content.startsWith(prefix)) return; //Don't bother with messages that don't start with the prefix
 
     //Determines what is a command and what is an argument (splits up name and args based on spaces)
     const cmdArgs = message.content.substring(message.content.indexOf(prefix) + prefix.length).split(new RegExp(/\s+/));
@@ -35,8 +34,10 @@ client.on("message", message => {
     if(!cmd) return message.channel.send("Command does not exist.");
     //User uses a server-only command in DMs
     if(cmd.guildOnly && message.channel.type == "dm") return message.channel.send("This command cannot be used in direct messages.");
+    //User sends a VC-only command w/o being in a VC
+    if(cmd.voiceOnly && !message.member.voice.channel) return message.channel.send("You need to be in a voice channel to use this command.");
     //User sends no args for command that requires args
-    if(cmd.args && !cmdArgs.length) return message.channel.send("This command requires args! Type \"?help <command>\" for proper usage.");
+    if(cmd.args && !cmdArgs.length) return message.channel.send(`This command requires args! Type "${prefix}help <command>" for proper usage.`);
 
     //Command execution
     try { cmd.execute(message, cmdArgs); } //Executes the command
@@ -49,6 +50,7 @@ client.on("message", message => {
 //Command handler: Allows for separate command files
 client.commands = new Discord.Collection(); //Initializes new, empty collection of client commands
 loadCommands(client.commands, './commands'); //Makes commands ready to be used
+
 //A function to search through subfolders of the given folder
 function loadCommands(collection, directory) {
     const files = fs.readdirSync(directory); //Reads the given directory
@@ -58,7 +60,7 @@ function loadCommands(collection, directory) {
         const path = `${directory}/${file}`; //Gets the exact file path
         
         //If the file is a .js file, add to command collection
-        if(file.endsWith('.js')){
+        if(file.endsWith('.js')) {
             const command = require(path);
             collection.set(command.name, command); 
         }

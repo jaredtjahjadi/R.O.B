@@ -5,6 +5,7 @@ module.exports = {
     args: false,
     usage: "",
     guildOnly: false,
+    voiceOnly: false,
     execute(message, args) {
         const r = Math.floor(Math.random() * 2 + 1);
         message.channel.send("Flipping coin...").then(msg => {

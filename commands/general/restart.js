@@ -9,6 +9,7 @@ module.exports = {
     args: false,
     usage: "",
     guildOnly: false,
+    voiceOnly: false,
     execute(message, args) {
         if(message.author.id === ownerID) {
             botRestart(message.channel);

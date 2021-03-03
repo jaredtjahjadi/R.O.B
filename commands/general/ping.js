@@ -5,9 +5,6 @@ module.exports = {
     args: false,
     usage: "",
     guildOnly: false,
-    execute(message, args) {
-        message.channel.send("Loading...").then(sent => {
-            sent.edit(`Pong! (${sent.createdTimestamp - message.createdTimestamp}ms)`)
-        });
-    }
+    voiceOnly: false,
+    execute(message, args) { message.channel.send("Loading...").then(sent => { sent.edit(`Pong! (${sent.createdTimestamp - message.createdTimestamp}ms)`) }); }
 }

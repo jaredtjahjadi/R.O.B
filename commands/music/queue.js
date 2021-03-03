@@ -5,7 +5,8 @@ module.exports = {
     args: false,
     usage: "",
     guildOnly: true,
-    execute(message, args) {
-        message.channel.send("Queue command (WIP)");
+    voiceOnly: true,
+    async execute(message, args) {
+        
     }
 }
