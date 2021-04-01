@@ -1,4 +1,5 @@
 const search = require('yt-search');
+const playModule = require('./play');
 module.exports = {
     name: "search",
     aliases: [],
@@ -7,8 +8,7 @@ module.exports = {
     usage: "",
     guildOnly: true,
     voiceOnly: true,
-    execute(message, args) {        
-        if(!serverQueue) return message.channel.send("There are no songs in the queue.");
+    execute(message, args) {
         message.channel.send("Search command (WIP)");
     }
 }

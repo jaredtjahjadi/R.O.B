@@ -1,8 +1,8 @@
 module.exports = {
-    name: "queue",
-    aliases: [],
-    description: "Displays the songs currently on queue to be played in the voice channel.",
-    args: false,
+    name: "clear",
+    aliases: ["c"],
+    description: "Clears the current queue.",
+    args: true,
     usage: "",
     guildOnly: true,
     voiceOnly: true,

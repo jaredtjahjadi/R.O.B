@@ -1,4 +1,4 @@
-const client = require('../../index');
+const { prefix } = require('../../config.json');
 module.exports = {
     name: "rps",
     aliases: [],
@@ -41,7 +41,7 @@ module.exports = {
                     });
                 }
             }
-            else message.channel.send("You have used this command incorrectly. Type \"?help <command>\" for proper usage.");
+            else message.channel.send(`Invalid args. Type "${prefix}help <command>" for proper usage.`);
         }
     }
 }

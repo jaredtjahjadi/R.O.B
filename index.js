@@ -1,17 +1,9 @@
 //Requirements for the bot to run correctly
-const Discord = require("discord.js"); //Require discord.js (basis of all Discord bots)
-const { prefix, token } = require("./config.json"); //Require separate config file (esp. to hide token)
+const Discord = require("discord.js");
 const fs = require('fs'); //Required for the command handler to work
-const client = new Discord.Client(); //discord.js client (bot)
-
-//Events when client is ready to go online
-client.once('ready', () => {
-    client.user.setActivity("Super Smash Bros. Ultimate | ?help"); //Displays a custom status
-    console.log(`${client.user.tag} online.`); //Bot successfully went online!
-});
-
-//Client logs in
-client.login(token);
+const { prefix, token } = require("./config.json"); //Require separate config file (esp. to hide token)
+const client = new Discord.Client({disableMentions: 'everyone'});
+client.queue = new Map();
 
 //Client listens to messages sent in chat
 client.on("message", message => { //The below code occurs for every message sent in chat
@@ -19,7 +11,7 @@ client.on("message", message => { //The below code occurs for every message sent
     if(message.author.bot) return;
 
     //Returns and sends a guide message if "rob" is the only content in the message
-    if(message.content.equals("rob")) return message.channel.send(`Yes? (Type "${prefix}help" to see the list of commands.)`);
+    if(message.content.toLowerCase() == "rob") return message.channel.send(`Yes? (Type "${prefix}help" to see the list of commands.)`);
     if(!message.content.startsWith(prefix)) return; //Don't bother with messages that don't start with the prefix
 
     //Determines what is a command and what is an argument (splits up name and args based on spaces)
@@ -68,3 +60,10 @@ function loadCommands(collection, directory) {
         else if(fs.lstatSync(path).isDirectory()) loadCommands(collection, path);
     }
 };
+
+//Events when client is ready to go online
+client.once('ready', () => {
+    client.user.setActivity("Super Smash Bros. Ultimate | ?help"); //Displays a custom status
+    console.log(`${client.user.tag} online.`); //Bot successfully went online!
+});
+client.login(token); //Client logs in

@@ -10,7 +10,7 @@ This bot was created by [Jared Tjahjadi](mailto:jaredtjahjadi@gmail.com), a Comp
 
 # Notes
 Unfortunately, this bot does not yet have a dedicated hosting server. In other words, it will not be online 24/7.  
-You are welcome to clone, build, and compile the code provided in this repository. However, help will not be provided.
+You are welcome to clone, build, and compile the code provided in this repository.
 
 # Support
 Support server: TBA  

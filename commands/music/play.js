@@ -5,7 +5,7 @@ const queue = new Map(); //Global queue: Each server has a key and value
 module.exports = {
     name: "play",
     aliases: ["p"],
-    description: "Play music in a voice channel!",
+    description: "Play music in a voice channel.",
     args: true,
     usage: "<YouTube URL/keywords>",
     guildOnly: true,
@@ -14,13 +14,12 @@ module.exports = {
         const vc = message.member.voice.channel; //Stores the voice channel the user is currently in
         const serverQueue = queue.get(message.guild.id); //Server queue
 
-        //Determines what song the user is requesting (changes later)
+        //Determines what YouTube video the user is requesting
         let song = {};
-
         //Request by YouTube URL (below code only happens if URL is valid)
         if(ytdl.validateURL(args[0])) {
             const songInfo = await ytdl.getInfo(args[0]);
-            song = { title: songInfo.videoDetails.title, url: songInfo.videoDetails.url }
+            song = { title: songInfo.videoDetails.title, url: songInfo.videoDetails.url, duration: songInfo.videoDetails.lengthSeconds }
         }
         //Request by searching with keywords
         else {
@@ -30,9 +29,12 @@ module.exports = {
                 return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
             }
             const video = await videoFinder(args.join(' '));
-            if(video) song = { title: video.title, url: video.url };
+            if(video) song = { title: video.title, url: video.url, duration: video.lengthSeconds };
             else return message.channel.send("Couldn't find video. Try different keywords!");
         }
+
+        //Checks song duration, doesn't queue if longer than 60 minutes
+        if(song.duration > 3600) return message.channel.send("Cannot play a song longer than 60 minutes.");
 
         //If the queue is empty
         if(!serverQueue) {
@@ -71,7 +73,6 @@ const player = async (guild, song) => {
     if(!song) {
         songQueue.voiceChannel.leave();
         queue.delete(guild.id);
-        songQueue.textChannel.send(`Queue empty. Leaving voice channel **${songQueue.voiceChannel.name}**.`);
         return;
     }
     const stream = ytdl(song.url, { filter: 'audioonly' });

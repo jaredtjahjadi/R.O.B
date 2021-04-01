@@ -1,4 +1,3 @@
-const play = require('./play');
 const playModule = require('./play');
 
 module.exports = {
@@ -10,7 +9,9 @@ module.exports = {
     guildOnly: true,
     voiceOnly: true,
     execute(message, args) {
-        if(!playModule.serverQueue) return message.channel.send("You can't skip songs that don't exist!");
-        playModule.serverQueue.connection.dispatcher.end();
+        if(!message.guild.voice) return message.channel.send("I am not connected to a voice channel."); //Bot not in VC
+        const serverQueue = message.client.queue.get(message.guild.id);
+        if(!serverQueue) return message.channel.send("No queue.");
+        serverQueue.connection.dispatcher.end("Song skipped.");
     }
 }
